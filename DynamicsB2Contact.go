@@ -4,14 +4,14 @@ import (
 	"math"
 )
 
-/// Friction mixing law. The idea is to allow either fixture to drive the friction to zero.
-/// For example, anything slides on ice.
+// / Friction mixing law. The idea is to allow either fixture to drive the friction to zero.
+// / For example, anything slides on ice.
 func B2MixFriction(friction1, friction2 float64) float64 {
 	return math.Sqrt(friction1 * friction2)
 }
 
-/// Restitution mixing law. The idea is allow for anything to bounce off an inelastic surface.
-/// For example, a superball bounces on anything.
+// / Restitution mixing law. The idea is allow for anything to bounce off an inelastic surface.
+// / For example, a superball bounces on anything.
 func B2MixRestitution(restitution1, restitution2 float64) float64 {
 	if restitution1 > restitution2 {
 		return restitution1
@@ -29,11 +29,11 @@ type B2ContactRegister struct {
 	Primary    bool
 }
 
-/// A contact edge is used to connect bodies and contacts together
-/// in a contact graph where each body is a node and each contact
-/// is an edge. A contact edge belongs to a doubly linked list
-/// maintained in each attached body. Each contact has two contact
-/// nodes, one for each attached body.
+// / A contact edge is used to connect bodies and contacts together
+// / in a contact graph where each body is a node and each contact
+// / is an edge. A contact edge belongs to a doubly linked list
+// / maintained in each attached body. Each contact has two contact
+// / nodes, one for each attached body.
 type B2ContactEdge struct {
 	Other   *B2Body            ///< provides quick access to the other body attached.
 	Contact B2ContactInterface ///< the contact
@@ -450,7 +450,9 @@ func B2ContactUpdate(contact B2ContactInterface, listener B2ContactListenerInter
 	oldManifold := *contact.GetManifold()
 
 	// Re-enable this contact.
-	contact.SetFlags(contact.GetFlags() | B2Contact_Flag.E_enabledFlag)
+
+	// Commented to not re-enable contacts
+	//contact.SetFlags(contact.GetFlags() | B2Contact_Flag.E_enabledFlag)
 
 	touching := false
 	wasTouching := (contact.GetFlags() & B2Contact_Flag.E_touchingFlag) == B2Contact_Flag.E_touchingFlag
